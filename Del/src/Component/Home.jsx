@@ -38,6 +38,17 @@ function Home() {
           {img.map((item) => (
             <div key={item.id} className="flex flex-col items-center">
               <img src={item.image} alt={`Image ${item.id}`} className="w-full" />
+
+              <div className="flex flex-col">
+              <Link to="/Addition" onClick={() => localStorage.setItem("id", item.id)}>
+               <button 
+            type="button" 
+         className="flex justify-center items-center w-full border-2 mt-4" 
+         >
+               Update
+         </button>
+              </Link>
+              
               <button 
                 type="button" 
                 className="flex justify-center items-center w-full border-2 mt-4" 
@@ -45,11 +56,14 @@ function Home() {
               >
                 DELETE
               </button>
+  
+
+            </div>
             </div>
           ))}
         </div>
     <div className="w-[100%] flex justify-center items-center ">
- <button 
+         <button 
           type="button" 
           className="bg-[#1c4ed8] mt-10 flex justify-center items-center w-[50%] p-2 text-white"
         >

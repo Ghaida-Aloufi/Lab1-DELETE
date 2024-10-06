@@ -11,7 +11,7 @@ const UserForm = () => {
     fetch('https://66ef2b583ed5bb4d0bf2f4ac.mockapi.io/login', {
       method: 'POST',
       body: JSON.stringify({
-        urlImage,
+        image:urlImage,
         name,
         gender,
       }),
@@ -19,19 +19,43 @@ const UserForm = () => {
         'Content-type': 'application/json; charset=UTF-8',
       },
     })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-        setUrlImage('');
-        setName('');
-        setGender('');
-      })
-      .catch((error) => console.error('Error:', error)); 
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+      setUrlImage('');
+      setName('');
+      setGender('');
+    })
+    .catch((error) => console.error('Error:', error)); 
+  };
+
+  const Edit = (e) => {
+    e.preventDefault(); 
+
+    fetch(`https://66ef2b583ed5bb4d0bf2f4ac.mockapi.io/login/${localStorage.getItem('id')}`, { 
+      method: 'PUT',
+      body: JSON.stringify({
+        image:urlImage,
+        name,
+        gender,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+      setUrlImage('');
+      setName('');
+      setGender('');
+    })
+    .catch((error) => console.error('Error:', error)); 
   };
 
   return (
     <div className='flex justify-center items-center h-screen bg-gray-100'>
-      <div className="flex flex-col border border-gray-300 shadow-lg p-6 rounded-md w-auto max-w-xs mx-auto bg-white w-[50vh]">
+      <div className="flex flex-col border border-gray-300 shadow-lg p-6 rounded-md w-auto max-w-xs mx-auto bg-white w-[80vh]">
         <h2 className="text-center text-2xl font-semibold text-blue-600 mb-4">User Form</h2>
 
         <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center w-[100%]'>
@@ -67,9 +91,17 @@ const UserForm = () => {
 
           <button 
             type="submit" 
-            className="bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200 p-3"
+            className="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition duration-200 p-3"
           >
             Submit
+          </button>
+
+          <button 
+            type="button" 
+            className="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition duration-200 w-[11vh] m-4"
+            onClick={Edit}
+          >
+            Edit
           </button>
         </form>
       </div>
